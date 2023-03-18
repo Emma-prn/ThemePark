@@ -46,9 +46,6 @@ public class WaitingLine : MonoBehaviour
                 visitor.setStatus(VisitorNavigation.status.Wait);
 
                 if(!attraction.isFull()){
-                    Debug.Log("Peut entrer");
-                    //visitor.canEnter();
-                    //visitor.setStatus(VisitorNavigation.status.Visit);
                     attraction.VisitorEnter(visitor);
                 }
                 else {
@@ -63,6 +60,5 @@ public class WaitingLine : MonoBehaviour
                 hit.enabled = true;
             }
         }
-        Debug.Log(getNumberVisitor());
     }
 }

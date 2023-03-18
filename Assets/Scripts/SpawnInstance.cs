@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
+using UnityEngine.UI;
 
 public class SpawnInstance : MonoBehaviour
 {
     public GameObject NewGuest;
     public int GuestNumber;
+    private int TotalGuest;
+    public Text GuestText;
 
     public GameObject NewCrow;
     public int CrowNumber;
+    private int TotalCrow;
+    public Text CrowText;
 
     private Vector3 terrainSize;
 
@@ -42,6 +47,7 @@ public class SpawnInstance : MonoBehaviour
             Vector3 PositionInNavMesh;
             if(getRandomPosition(GuestPosition, 10.0f, out PositionInNavMesh)){
                 Instantiate(NewGuest, PositionInNavMesh, Quaternion.identity);
+                TotalGuest++;
             }
         }*/
 
@@ -51,8 +57,11 @@ public class SpawnInstance : MonoBehaviour
             Vector3 PositionInNavMesh;
             if(getRandomPosition(CrowPosition, 10.0f, out PositionInNavMesh)){
                 Instantiate(NewCrow, PositionInNavMesh, Quaternion.identity);
+                TotalCrow++;
             }
         }
+        GuestText.text = TotalGuest.ToString();
+        CrowText.text = TotalCrow.ToString();
     }
 
     // Update is called once per frame
@@ -66,6 +75,7 @@ public class SpawnInstance : MonoBehaviour
                 Vector3 PositionInNavMesh;
                 if(getRandomPosition(GuestPosition, 10.0f, out PositionInNavMesh)){
                     Instantiate(NewGuest, PositionInNavMesh, Quaternion.identity);
+                    TotalGuest++;
                 }
             }
         }
@@ -73,8 +83,17 @@ public class SpawnInstance : MonoBehaviour
         // Add Crow
         if(Input.GetKeyDown(KeyCode.C)){
             for(int i = 0; i < 25; i++){
-                Instantiate(NewCrow);
+                Vector3 NewPos = new Vector3(Random.Range(2.6f,terrainSize.x), 50, Random.Range(0,terrainSize.z));
+                Vector3 CrowPosition = NewPos;
+                Vector3 PositionInNavMesh;
+                if(getRandomPosition(CrowPosition, 10.0f, out PositionInNavMesh)){
+                    Instantiate(NewCrow, PositionInNavMesh, Quaternion.identity);
+                    TotalCrow++;
+                }
             }
         }
+
+        GuestText.text = TotalGuest.ToString();
+        CrowText.text = TotalCrow.ToString();
     }
 }

@@ -7,12 +7,9 @@ public class VisitorNavigation : MonoBehaviour {
 
     private List<POI> pois;
     private NavMeshAgent agent;
-    private Renderer renderer;
-    private Collider collider;
     private VisitorNavigation before = null;
     private Transform goal;
     private POI attraction;
-    private bool isIn = false;
     public enum status
     {
         Walk,
@@ -36,10 +33,6 @@ public class VisitorNavigation : MonoBehaviour {
         before = visitor_before;
     }
 
-    public bool canEnter(){
-        return isIn = true;
-    }
-
     public void setStatus(status req_status){
         switch(req_status){
             case status.Walk:
@@ -54,20 +47,9 @@ public class VisitorNavigation : MonoBehaviour {
                 break;
             case status.Visit:
                 currentStatus = status.Visit;
-                //StartCoroutine("AttractionVisit");
                 break;
         }
     }
-
-    /*private IEnumerator AttractionVisit(){
-        yield return new WaitForSeconds(attraction.visit_time);
-        attraction.removeOneVisitor();
-        transform.position = new Vector3(attraction.poi_exit.position.x, agent.transform.position.y, attraction.poi_exit.position.z);
-        renderer.enabled = true;
-        collider.enabled = true;
-        agent.enabled = true;
-        newDestination();
-    }*/
 
     private void Follow(){
         if(before != null){
@@ -88,8 +70,6 @@ public class VisitorNavigation : MonoBehaviour {
 
     void Start () {
         agent = GetComponent<NavMeshAgent>();
-        renderer = GetComponent<Renderer>();
-        collider = GetComponent<Collider>();
         pois = PoiManager.Instance.pois;
         setStatus(status.Walk);
     }
@@ -111,14 +91,6 @@ public class VisitorNavigation : MonoBehaviour {
                 break;
 
             case status.Visit:
-                /*if(isIn){
-                    Debug.Log("Entrée");
-                    attraction.addOneVisitor();
-                    renderer.enabled = false;
-                    collider.enabled = false;
-                    agent.enabled = false;
-                    isIn = false;
-                }*/
                 break;
         }
     }
