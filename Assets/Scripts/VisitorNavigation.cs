@@ -17,7 +17,6 @@ public class VisitorNavigation : MonoBehaviour {
         Visit
     }
     public status currentStatus {get; private set;}
-    public float distanceBetweenVisitor = 2.0f;
 
     public void newDestination(){
         int goalIndex = Random.Range(0,pois.Count);
@@ -53,14 +52,16 @@ public class VisitorNavigation : MonoBehaviour {
 
     private void Follow(){
         if(before != null){
-            Vector3 dist = transform.position - before.transform.position;
-
-            Quaternion rotation = new Quaternion();
-            rotation.SetLookRotation(-dist);
-            transform.rotation = rotation;
-
-            if(dist.magnitude > distanceBetweenVisitor){
-                setNewDestination(before.transform.position + dist.normalized * distanceBetweenVisitor);
+            Vector3 destination = before.transform.position;
+            float distance = Vector3.Distance(transform.position, destination);
+            
+            if (distance > 9.0f)
+            {
+                setNewDestination(destination);
+            }
+            else
+            {
+                agent.velocity = Vector3.zero;
             }
         }
         else {
