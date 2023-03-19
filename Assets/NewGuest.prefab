@@ -135,7 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee31beb08f15dd48b2a7ca3d6df5144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceBetweenVisitor: 2
 --- !u!54 &-846464022647255121
 Rigidbody:
   m_ObjectHideFlags: 0
