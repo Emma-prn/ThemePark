@@ -12,7 +12,6 @@ public class CrowNavigation : MonoBehaviour
     void chooseRandomPosition(){
         NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 50f, NavMesh.AllAreas);
         agent.SetDestination(hit.position);
-        Debug.Log(agent.destination);
     }
 
     // Start is called before the first frame update
