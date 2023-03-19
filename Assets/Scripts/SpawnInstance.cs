@@ -33,32 +33,26 @@ public class SpawnInstance : MonoBehaviour
         return false;
     }
     
-    //public void addPrefab(prefabNumber, prefab, terrainSize)
+    public void addPrefab(int prefabNumber, GameObject prefab, Vector3 terrainSize, ref int totalToIncrement){
+        for(int i = 0; i < prefabNumber; i++){
+            Vector3 NewPos = new Vector3(Random.Range(0,terrainSize.x), 50, Random.Range(0,terrainSize.z));
+            Vector3 PrefabPosition = NewPos;
+            Vector3 PositionInNavMesh;
+            if(getRandomPosition(PrefabPosition, 10.0f, out PositionInNavMesh)){
+                Instantiate(prefab, PositionInNavMesh, Quaternion.identity);
+                totalToIncrement++;
+            }
+        }
+    }
 
-    // Create fonction for position Navemesh
     void Start()
     {
         var terrain = Terrain.activeTerrain;
         terrainSize = terrain.terrainData.size;
-        for(int i = 0; i < GuestNumber; i++){
-            Vector3 NewPos = new Vector3(Random.Range(0,terrainSize.x), 50, Random.Range(0,terrainSize.z));
-            Vector3 GuestPosition = NewPos;
-            Vector3 PositionInNavMesh;
-            if(getRandomPosition(GuestPosition, 10.0f, out PositionInNavMesh)){
-                Instantiate(NewGuest, PositionInNavMesh, Quaternion.identity);
-                TotalGuest++;
-            }
-        }
+        
+        addPrefab(GuestNumber, NewGuest, terrainSize, ref TotalGuest);
+        addPrefab(CrowNumber, NewCrow, terrainSize, ref TotalCrow);
 
-        for(int i = 0; i < CrowNumber; i++){
-            Vector3 NewPos = new Vector3(Random.Range(2.6f,terrainSize.x), 50, Random.Range(0,terrainSize.z));
-            Vector3 CrowPosition = NewPos;
-            Vector3 PositionInNavMesh;
-            if(getRandomPosition(CrowPosition, 10.0f, out PositionInNavMesh)){
-                Instantiate(NewCrow, PositionInNavMesh, Quaternion.identity);
-                TotalCrow++;
-            }
-        }
         GuestText.text = TotalGuest.ToString();
         CrowText.text = TotalCrow.ToString();
     }
@@ -67,28 +61,12 @@ public class SpawnInstance : MonoBehaviour
     {
         // Add Guest
         if(Input.GetKeyDown(KeyCode.G)){
-            for(int i = 0; i < 25; i++){
-                Vector3 NewPos = new Vector3(Random.Range(2.6f,terrainSize.x), 50, Random.Range(0,terrainSize.z));
-                Vector3 GuestPosition = NewPos;
-                Vector3 PositionInNavMesh;
-                if(getRandomPosition(GuestPosition, 10.0f, out PositionInNavMesh)){
-                    Instantiate(NewGuest, PositionInNavMesh, Quaternion.identity);
-                    TotalGuest++;
-                }
-            }
+            addPrefab(25, NewGuest, terrainSize, ref TotalGuest);
         }
 
         // Add Crow
         if(Input.GetKeyDown(KeyCode.C)){
-            for(int i = 0; i < 25; i++){
-                Vector3 NewPos = new Vector3(Random.Range(2.6f,terrainSize.x), 50, Random.Range(0,terrainSize.z));
-                Vector3 CrowPosition = NewPos;
-                Vector3 PositionInNavMesh;
-                if(getRandomPosition(CrowPosition, 10.0f, out PositionInNavMesh)){
-                    Instantiate(NewCrow, PositionInNavMesh, Quaternion.identity);
-                    TotalCrow++;
-                }
-            }
+            addPrefab(25, NewCrow, terrainSize, ref TotalCrow);
         }
 
         GuestText.text = TotalGuest.ToString();
