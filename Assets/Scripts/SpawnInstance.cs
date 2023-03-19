@@ -35,13 +35,12 @@ public class SpawnInstance : MonoBehaviour
     
     //public void addPrefab(prefabNumber, prefab, terrainSize)
 
-    // Start is called before the first frame update
     // Create fonction for position Navemesh
     void Start()
     {
         var terrain = Terrain.activeTerrain;
         terrainSize = terrain.terrainData.size;
-        /*for(int i = 0; i < GuestNumber; i++){
+        for(int i = 0; i < GuestNumber; i++){
             Vector3 NewPos = new Vector3(Random.Range(0,terrainSize.x), 50, Random.Range(0,terrainSize.z));
             Vector3 GuestPosition = NewPos;
             Vector3 PositionInNavMesh;
@@ -49,7 +48,7 @@ public class SpawnInstance : MonoBehaviour
                 Instantiate(NewGuest, PositionInNavMesh, Quaternion.identity);
                 TotalGuest++;
             }
-        }*/
+        }
 
         for(int i = 0; i < CrowNumber; i++){
             Vector3 NewPos = new Vector3(Random.Range(2.6f,terrainSize.x), 50, Random.Range(0,terrainSize.z));
@@ -64,7 +63,6 @@ public class SpawnInstance : MonoBehaviour
         CrowText.text = TotalCrow.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Add Guest
